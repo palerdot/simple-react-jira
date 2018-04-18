@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 const Ticket = (props) => (
   <div>
-    porumai {props.title}
+    {props.title}
   </div>
 )
 
