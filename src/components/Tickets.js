@@ -7,11 +7,11 @@ import _ from 'lodash'
 import { connect } from 'react-redux'
 
 import { 
-  Container, Row, Col 
+  Container, Row, Col
 } from 'reactstrap'
 
-// ticket component
-import Ticket from './Ticket'
+// ticketgist component
+import TicketGist from './TicketGist'
 
 // define our mapStateToProps, mapDispatchToProps
 const mapStateToProps = (state) => {
@@ -30,12 +30,19 @@ class Tickets extends React.Component {
     super(props)
   }
 
+  // helper function to navigate to ticket
+  _navigateToTicket = (id) => {
+    console.log('porumai! navigating to id ', id)
+    this.props.history.push("/ticket/" + id)
+  }
+
   // helper function to render tickets
   _renderTickets() {
     return this.props.tickets.map((t) => (
-      <Ticket
+      <TicketGist
         key={t.id} 
         {...t}
+        navigateHandler={this._navigateToTicket}
       />
     ))
   }

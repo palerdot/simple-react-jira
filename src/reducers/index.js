@@ -11,7 +11,7 @@ function ticketsReducer(state = [], action) {
     case 'ADD_TICKET':
       console.log('porumai! adding ticket in reducer ===> ', action.ticket)
       // add id to ticket
-      let ticket = Object.assign({}, {id: state.length}, action.ticket)
+      let ticket = Object.assign({}, {id: state.length + 1}, action.ticket)
       return [
         ...state,
         ticket

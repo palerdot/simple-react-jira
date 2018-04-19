@@ -12,7 +12,7 @@ import { addTicket } from '../actions'
 import { 
   Container, Row, Col,
   Button, Badge,
-  Form, FormGroup, Label, Input, FormText 
+  Form, FormGroup, Label, Input
 } from 'reactstrap'
 
 // define our mapStateToProps, mapDispatchToProps

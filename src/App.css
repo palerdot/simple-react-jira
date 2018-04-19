@@ -21,3 +21,9 @@
   height: 75px;
   padding: 20px;
 }
+
+.ticket-info {
+    border: thin solid #DEDEDE;
+    padding: 7px;
+    cursor: pointer;
+}

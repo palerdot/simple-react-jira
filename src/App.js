@@ -17,6 +17,7 @@ import {
 // import our components
 import Tickets from './components/Tickets'
 import NewTicket from './components/NewTicket'
+import Ticket from './components/Ticket'
 
 const App = () => (
   <Router>
@@ -37,8 +38,9 @@ const App = () => (
 
       <hr/>
 
-      <Route exact path="/" component={Tickets}/>
+      <Route exact path="/" component={withRouter(Tickets)}/>
       <Route path="/new" component={withRouter(NewTicket)}/>
+      <Route path="/ticket/:id" component={Ticket}/>
 
     </Container>
   </Router>
