@@ -1,13 +1,20 @@
 // creates a new ticket
 import React from 'react'
 
-import _ from 'lodash'
-
 // redux related
 import { connect } from 'react-redux'
 
 // import actions
 import { addTicket } from '../actions'
+
+// noty alert
+import Noty from 'noty'
+
+// import validators
+import {
+  titleValidator, 
+  tagsValidator 
+} from '../utils/'
 
 import { 
   Container, Row, Col,
@@ -21,10 +28,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  console.log('mapDispatchToProps ==> ', arguments)
   return {
     createTicket: (ticket) => {
-      console.log('porumai! ticket submitted ', ticket, ownProps)
       dispatch(addTicket(ticket))
       // after creating ticket
       // navigate back to main ticket
@@ -36,7 +41,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 class NewTicket extends React.Component {
   constructor(props) {
     super(props)
-    console.log('porumai! new ticket props ', props)
     // set state
     this.state = {
       title: "",
@@ -59,7 +63,6 @@ class NewTicket extends React.Component {
       })
       // clear the input
       e.target.value = ""
-      console.log('porumai! adding tag ', tag)
     }
   }
 
@@ -67,20 +70,67 @@ class NewTicket extends React.Component {
   _renderTags() {
     return (
       this.state.tags.map(
-        (t) => <Badge key={t} color="info">{t}</Badge>
+        (t) => 
+          <Badge key={t} color="info" className="tag-badge">
+            {t}{' '}
+            <span className="oi" data-glyph="circle-x" title="remove tag" aria-hidden="true"
+              onClick={() => {
+                let tags = this.state.tags.filter((tag) => tag !== t)
+                // set the new tags
+                this.setState({
+                  tags
+                })
+              }}
+            ></span>
+          </Badge>
       )
     )
   }
 
   // main function to create ticket
-  _createTicket = (history) => this.props.createTicket(this.state, history)
+  _createTicket = (history) => {
+
+    // validate title
+    let is_title_valid = titleValidator(this.state.title)
+
+    if (!is_title_valid) {
+      new Noty({
+        text: 'Please enter a valid title within 80 characters',
+        type: 'error',
+        theme: 'sunset',
+        timeout: 1000
+      }).show()
+      // do not proceed
+      return
+    }
+
+    // validate tags
+    let is_tag_valid = tagsValidator(this.state.tags)
+
+    if (!is_tag_valid) {
+      new Noty({
+        text: 'Please enter a valid tag within 20 characters',
+        type: 'error',
+        theme: 'sunset',
+        timeout: 1000
+      }).show()
+      // do not proceed
+      return
+    }
+
+    this.props.createTicket(this.state, history) 
+
+    new Noty({
+      text: 'Ticket created successfully',
+      type: 'success',
+      theme: 'sunset',
+      timeout: 1000
+    }).show()
+  }
 
   render() {
     return (
       <Container>
-        <Row>
-          porumai! will create new ticket  
-        </Row>
         <Row>
           <Col s="12">
             <Form>
@@ -89,7 +139,9 @@ class NewTicket extends React.Component {
                 <Input 
                   type="text" name="title" id="ticketTitle" placeholder="Please enter title"
                   defaultValue={this.state.title}
-                  onChange={(e) => this.state.title = e.target.value.trim()} 
+                  onChange={(e) => this.setState({
+                    title: e.target.value.trim()
+                  })} 
                 />
               </FormGroup>
               <FormGroup>
@@ -97,7 +149,9 @@ class NewTicket extends React.Component {
                 <Input 
                   type="textarea" name="description" id="ticketDescription" 
                   defaultValue={this.state.description}
-                  onChange={(e) => this.state.description = e.target.value.trim()} 
+                  onChange={(e) => this.setState({
+                    description: e.target.value.trim()
+                  })} 
                 />
               </FormGroup>
               <FormGroup>

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { 
-  Button, Badge
+  Badge
 } from 'reactstrap'
 
 const TicketGist = (props) => (
@@ -10,7 +10,7 @@ const TicketGist = (props) => (
   >
     <h3>{props.title}</h3>
     <div>
-      {props.tags.map((t) => <Badge key={t} color="info">{t}</Badge>)}
+      {props.tags.map((t) => <Badge className="tag-badge" key={t} color="info">{t}</Badge>)}
     </div>
   </div>
 )

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 import './App.css'
 
@@ -24,14 +24,19 @@ const App = () => (
     <Container>
       <Row className="header">
         <Col s="8">
-          Simple React JIRA
+          <h3>Simple React JIRA</h3>
         </Col>
         <Col s="4">
           <Link to="/">
-            <Button color="secondary">Home</Button>{' '}
+            <Button color="secondary" outline>
+              <span className="oi" data-glyph="home" title="remove tag" aria-hidden="true"></span>{' '}
+              Home
+            </Button>{' '}
           </Link>
           <Link to="/new">
-            <Button color="success">New Ticket</Button>{' '}
+            <Button color="success" outline>
+              New Ticket
+            </Button>{' '}
           </Link>
         </Col>
       </Row>

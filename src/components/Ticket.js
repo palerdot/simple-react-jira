@@ -3,7 +3,7 @@ import React from 'react'
 import _ from 'lodash'
 
 import { 
-  Button, Badge
+  Badge
 } from 'reactstrap'
 
 // redux related
@@ -11,7 +11,6 @@ import { connect } from 'react-redux'
 
 // define our mapStateToProps, mapDispatchToProps
 const mapStateToProps = (state, ownProps) => {
-  console.log('porumai! msp ', ownProps)
   return _getTicketInfo(state.tickets, ownProps.match.params.id)
 }
 
@@ -27,13 +26,13 @@ function _getTicketInfo(tickets, id) {
 } 
 
 const Ticket = (props) => (
-  <div className="ticket-info">
+  <div className="">
     <h3>{props.title}</h3>
     <div>
       {props.description}
     </div>
     <div>
-      {props.tags.map((t) => <Badge key={t} color="info">{t}</Badge>)}
+      {props.tags.map((t) => <Badge className="tag-badge" key={t} color="info">{t}</Badge>)}
     </div>
   </div>
 )
@@ -41,23 +40,3 @@ const Ticket = (props) => (
 export default connect(
   mapStateToProps
 )(Ticket)
-
-/*class Ticket extends React.Component {
-  constructor(props) {
-    super(props)
-    console.log('porumai! ticket props ', props.match.params.id)
-  }
-
-  render() {
-    return (
-      <div className="ticket-info">
-        <h3></h3>
-        <div>
-          {''}
-        </div>
-      </div>
-    )
-  }
-}*/
-
-// export default Ticket

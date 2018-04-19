@@ -26,4 +26,10 @@
     border: thin solid #DEDEDE;
     padding: 7px;
     cursor: pointer;
+    margin: 7px;
+}
+
+.tag-badge {
+  padding: 7px;
+  margin: 7px 7px 7px 0;
 }

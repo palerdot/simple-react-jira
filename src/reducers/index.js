@@ -1,15 +1,10 @@
 // define the reducers that changes the state tree based on the dispatched actions
 
-const initialState = {
-  tickets: []
-}
-
 // reducer for tickets
 function ticketsReducer(state = [], action) {
   switch (action.type) {
     // adds ticket
     case 'ADD_TICKET':
-      console.log('porumai! adding ticket in reducer ===> ', action.ticket)
       // add id to ticket
       let ticket = Object.assign({}, {id: state.length + 1}, action.ticket)
       return [
